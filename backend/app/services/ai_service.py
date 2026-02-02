@@ -7,7 +7,7 @@ from typing import List
 from app.schemas.stock import NewsResponse, AIAnalysisResponse
 
 # 你的 API KEY
-GENAI_API_KEY = "AIzaSyDfyphtBuqu6XtcDkj7-8eVrU6j6e9aKEI" 
+GENAI_API_KEY = "Upload your own Google API key" 
 
 client = genai.Client(api_key=GENAI_API_KEY)
 
