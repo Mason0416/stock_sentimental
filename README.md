@@ -37,9 +37,10 @@ StockMind AI 是一個結合即時股價與人工智慧新聞分析的 Web 應�
 ```bash
 git clone [https://github.com/yourusername/stock_sentimental.git](https://github.com/yourusername/stock_sentimental.git)
 cd stock_sentimental
+```
 
 
-2. 後端設定 (Backend)
+### 2. 後端設定 (Backend)
 
 請開啟一個終端機 (Terminal) 進入 backend 資料夾：
 ```bash
@@ -78,6 +79,46 @@ python scripts/init_cache_table.py
 ```bash
 uvicorn app.main:app --reload
 ```
+
+### 3. 前端設定 (Frontend)
+
+請開啟另一個終端機進入 frontend 資料夾：
+```bash
+cd frontend
+```
+
+安裝依賴套件： 注意：因 react-gauge-chart 依賴舊版 React，需使用 --legacy-peer-deps 參數。
+```bash
+npm install --legacy-peer-deps
+```
+
+啟動前端開發伺服器：
+```bash
+npm run dev
+```
+
+
+## ⚠️ 常見問題排除
+### 1. 前端安裝失敗 (ERESOLVE unable to resolve dependency tree)
+
+這是因為 React 19 與部分套件版本衝突。
+
+解法：請務必在 npm install 後面加上 --legacy-peer-deps。
+
+### 2. 搜尋不到特定股票？
+
+請確認是否已執行 python scripts/init_stock_list.py 來更新資料庫中的股票清單。
+
+### 3. 出現 429 Resource Exhausted 錯誤？
+
+代表 Google Gemini API 免費額度用盡。
+
+解法：請稍等一分鐘後重試，系統已內建快取機制，查詢過的股票在一小時內不會再次消耗額度。
+
+### 4. 新聞連結點開是 404？
+
+後端已內建 clean_url 機制修復大部分 Google News 轉址問題，請確認後端程式碼為最新版本。
+
 
 ## Project Structure
 
