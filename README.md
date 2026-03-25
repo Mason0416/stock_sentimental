@@ -2,8 +2,6 @@
 
 StockMind AI 是一個結合即時股價與人工智慧新聞分析的 Web 應用程式。它利用 Google Gemini 2.0 模型分析最新的財經新聞，為使用者提供個股的情緒評分、買賣建議以及風險提示。
 
-![StockMind AI Interface](./frontend/public/vite.svg)
-
 ## 主要功能
 
 * ** 智慧搜尋**：支援台股代碼與名稱搜尋（含自動完成建議）。
