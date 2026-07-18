@@ -4,7 +4,7 @@ from app.schemas.stock import StockResponse, NewsResponse, StockAnalysisResult
 # 引入所有需要的服務
 from app.services import stock_service, news_service, ai_service, cache_service
 
-# [關鍵修正] 這一行就是定義 router 的地方，絕對不能少！
+# 定義 router
 router = APIRouter(
     prefix="/api/stocks",
     tags=["stocks"]
@@ -16,10 +16,13 @@ def search_stocks(query: str = Query(..., min_length=1)):
 
 @router.get("/analyze", response_model=StockAnalysisResult)
 def analyze_stock(code: str = Query(..., min_length=2)):
-    # 1. 找基本資料
-    stocks = stock_service.search_stocks_by_keyword(code)
+    # 👇 [關鍵新增] 清除前端可能傳來的多餘字串，例如 "2330 台積電" 會變成純粹的 "2330"
+    clean_code = code.strip().split(" ")[0]
+
+    # 1. 找基本資料 (這裡改用 clean_code 去搜尋)
+    stocks = stock_service.search_stocks_by_keyword(clean_code)
     if not stocks:
-        raise HTTPException(status_code=404, detail="找不到該股票代碼")
+        raise HTTPException(status_code=404, detail=f"找不到該股票代碼: {clean_code}")
     
     target_stock = stocks[0]
     stock_id = target_stock.code
